@@ -3,11 +3,12 @@
  * subjects and their possible time tables.
  * @param   {Subject Object}        subjects    User's subjects
  * @param   {Callable}              verifier    Priority and Criteria verifier callback
- * @param   {Array of Combinations} combinations           
+ * @param   {Array of Combination}  combinations     
+ * @returns {Array of Combination}      
  */
 var searchCombinations = function(subjects, verifier, combinations)
 {
-
+    // TODO!
 }
 
 /**
@@ -15,10 +16,11 @@ var searchCombinations = function(subjects, verifier, combinations)
  *  and criteria selected.
  * @param   {Combination}           combination     Combination Bbject
  * @param   {Array of Priority}     priorities      Array of user's priorities
+ * @param   {Number}
  */
 var computeWeight = function(combination, priorities)
 {
-
+    return 0;       // TODO!
 }
 
 /**
@@ -26,10 +28,11 @@ var computeWeight = function(combination, priorities)
  * and sets a internal weight calculated by the computeWeight function.
  * @param   {Combination}           combination     Combination Object
  * @param   {Array of Priority}     priorities      Array of user's priorities
+ * @param   {Boolean}
  */
 var verifiesPriorities = function(combination, priorities)
 {
-
+    return true;    // TODO!
 }
 
 /**
@@ -38,8 +41,9 @@ var verifiesPriorities = function(combination, priorities)
  * @param   {Array of Subject}          subjects            Array of all subjects
  * @param   {Array of Selections}       selectedSubjects    Array of the selections made by the user
  * @param   {Array of Priority}         priorities          Array of the user's priorities
+ * @param   {Array of Combination}
  */
 var schedulerAlgorithm = function(subjects, selectedSubjects, priorities)
 {
-
+    // TODO!
 }
