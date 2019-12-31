@@ -203,6 +203,40 @@ var quicksort = function(array, left, right, get = function(element) { return el
 }
 
 /**
+ * Validates the format of the subject returning true if everything is ok. When there is an error,
+ * an error message should be sent to the console with its description.
+ * @param  {Array of Subject} subjects
+ * @return {Boolean} 
+ */
+var validateSubjects = function(subjects)
+{
+    // TODO!
+}
+
+/**
+ * Validates the format of the selected subject returning true if everything is ok. When there is an error,
+ * an error message should be sent to the console with its description.
+ * @param {Array of Subject}            subjects 
+ * @param {Array of SelectedSubject}    selectedSubjects 
+ * @param {Boolean}
+ */
+var validateSelectedSubjects = function(subjects, selectedSubjects)
+{
+    // TODO!
+}
+
+/**
+ * Validates the format of the priorities returning true if everything is ok. When there is an error,
+ * an error message should be sent to the console with its description.
+ * @param {Array of Subject}    subjects 
+ * @param {Array of Priorities} priorities 
+ */
+var validatePriorities = function(subjects, priorities)
+{
+    // TODO!
+}
+
+/**
  * Computes all the possible combinations with the given subjects and their schedules,
  * ordering the solutions by the resulting weight computed from the priorities.
  * @param   {Array of Subject}          subjects            Array of all subjects
@@ -213,13 +247,43 @@ var quicksort = function(array, left, right, get = function(element) { return el
 var schedulerAlgorithm = function(subjects, selectedSubjects, priorities)
 {
     // 1°, validate the format of the parameters and if something goes wrong, raise some message to notify the problem
+    if( validateSubjects(subjects) && validatePriorities(subjects, priorities) && validateSelectedSubjects(subjects, selectedSubjects) )
+    {
+        return null;
+    }
+    else
+    {
+        // 2°, run the combination algorithm to obtain all possible schedules and classify them by the criteria and priorities
+        let chosenSubjects = [];
+        for (let selectedSubject of selectedSubjects)
+        {
+            let subject = subjects.find(subject => subject.name == selectedSubject.name);
+            chosenSubjects.push(subject);
+        }
+        let verifier = function(combination) { return verifiesPriorities(combination, priorities); }
+        let combinations = searchCombinations(chosenSubjects, verifier);
 
-    // 2°, run the combination algorithm to obtain all possible schedules and classify them by the criteria and priorities
+        // 3°, compute for every combination its weight, starting with a simple linear transformation... could be changed!
+        let transformation = function(value)
+        {
+            const SLOPE = 10;
+            return value * SLOPE;
+        }
 
-    // 3°, compute for every combination its weight
+        for (let combination of combinations)
+        {
+            computeWeight(combination, priorities, selectedSubjects, transformation);
+        }
 
-    // 4°, run an ordering algorithm based on the previously calculated weight
+        // 4°, run an ordering algorithm based on the previously calculated weight
+        combinations = quicksort(
+            combinations, 
+            0, combinations.length - 1, 
+            function(combination) { return combination.weight; }, 
+            function(current, pivot) { return current < pivot; }
+        );
 
-    // 5°, return the result
-
+        // 5°, return the result
+        return combinations;
+    }
 }
