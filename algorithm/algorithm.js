@@ -148,5 +148,13 @@ var verifiesPriorities = function(combination, priorities)
  */
 var schedulerAlgorithm = function(subjects, selectedSubjects, priorities)
 {
-    // TODO!
+    // 1°, validate the format of the parameters and if something goes wrong, raise some message to notify the problem
+
+    // 2°, run the combination algorithm to obtain all possible schedules and classify them by the criteria and priorities
+
+    // 3°, compute for every combination its weight
+
+    // 4°, run an ordering algorithm based on the previously calculated weight
+
+    // 5°, return the result
 }
