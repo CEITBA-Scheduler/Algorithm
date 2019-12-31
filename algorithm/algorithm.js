@@ -139,6 +139,70 @@ var verifiesPriorities = function(combination, priorities)
 }
 
 /**
+ * Orders an array with the quick sort algorithm, and because it can be used to order an array
+ * with numbers, a function is provided to determine how to get the corresponding weight of each element
+ * when its an array of objects.
+ * @param {Array of Object} array 
+ * @param {Index}           left 
+ * @param {Index}           right
+ * @param {Callable}        get         Determines how to get the weight from the current element
+ * @param {Callable}        condition   Determines the condition of swaping when creating the partition
+ * @returns {Ordered array}
+ */
+var quicksort = function(array, left, right, get = function(element) { return element; }, condition = function(current, pivot) { return current > pivot; })
+{
+    var swap = function(array, one, two)
+    {
+        let auxiliar = array[one];
+        array[one] = array[two];
+        array[two] = auxiliar;
+    }
+    
+    var partition = function(array, left, right, pivot)
+    {
+        let partitionIndex = pivot;
+        let pivotValue = get(array[pivot]);
+        for (let i = left ; i <= right ; i++)
+        {
+            let currentValue = get(array[i]);
+            if ( condition(currentValue, pivotValue) )
+            {
+                while (partitionIndex > i)
+                {
+                    partitionIndex -= 1;
+                    let swapingValue = get(array[partitionIndex]);
+                    if ( !condition(swapingValue, pivotValue) )
+                    {
+                        swap(array, i, partitionIndex);
+                        break;
+                    }
+                }
+
+                if (partitionIndex <= i)
+                {
+                    swap(array, pivot, partitionIndex);
+                    break;
+                }
+            }
+        }
+
+        return partitionIndex;
+    }
+
+    if (left < right)
+    {
+        // Choose a pivot value and creates both partitions of the array, ordering with the given condition
+        let partitionIndex = partition(array, left, right, right);
+
+        // Swaps the partition and the pivot values and calls recursively to the quicksort function on both partitions
+        quicksort(array, left, partitionIndex - 1, get, condition);
+        quicksort(array, partitionIndex + 1, right, get, condition);
+    }
+
+    return array;
+}
+
+/**
  * Computes all the possible combinations with the given subjects and their schedules,
  * ordering the solutions by the resulting weight computed from the priorities.
  * @param   {Array of Subject}          subjects            Array of all subjects
@@ -157,4 +221,5 @@ var schedulerAlgorithm = function(subjects, selectedSubjects, priorities)
     // 4°, run an ordering algorithm based on the previously calculated weight
 
     // 5°, return the result
+
 }
