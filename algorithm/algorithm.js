@@ -16,7 +16,7 @@ const PriorityType = {
  * @param   {Subject Object}        subjects    User's subjects
  * @param   {Callable}              verifier    Priority and Criteria verifier callback
  * @param   {Combination}           combination     
- * @returns {Array of Combination}      
+ * @returns {Array of Combination}
  */
 var searchCombinations = function(subjects, verifier, combination = undefined)
 {
@@ -73,13 +73,57 @@ var searchCombinations = function(subjects, verifier, combination = undefined)
 /**
  *  Computes the ordering weight for a given combination based on the user's priorities
  *  and criteria selected.
- * @param   {Combination}           combination     Combination Bbject
- * @param   {Array of Priority}     priorities      Array of user's priorities
- * @param   {Number}
+ * @param   {Combination}               combination         Combination Object
+ * @param   {Array of Priority}         priorities          Array of user's priorities
+ * @param   {Array of SelectedSubjects} selectedSubjects    Selected Subjects with their name and weight
+ * @param   {Callable}                  transform           Callback
+ * @return   {Number}
  */
-var computeWeight = function(combination, priorities)
+var computeWeight = function(combination, priorities, selectedSubjects, transform)
 {
-    return 0;       // TODO!
+    // Execute the weight algorithm based on the given data an calculates the weight
+    var weight = weightAlgorithm(priorities, combination.priorities, selectedSubjects, transform);
+
+    // Saves the weight in the combination object
+    combination.weight = weight;
+}
+
+/**
+ * Calculates the corresponding weight for a combination with the given priorities
+ * according to the user's priority and subject selection.
+ * @param {Array of Priority}           priorities 
+ * @param {Array of Priority's index}   combinationPriorities 
+ * @param {Array of SelectedSubjects}   subjects 
+ * @param {Callable}                    transform
+ * @return {Number} Combination's weight
+ */
+var weightAlgorithm = function(priorities, combinationPriorities, subjects, transform)
+{
+    // 1°, calculate the base value for each priority amount
+    let base = priorities.length * transform(priorities.length) * transform(subjects.length);
+
+    // 2°, calculate the starting value for the amount of priorities of the combination
+    let weight = base * combinationPriorities.length;
+
+    // 3°, calculate the indexed value inside the range for the given amount of priorities
+    let indexedWeight = 0;
+    for (let index of combinationPriorities)
+    {
+        let currentPriority = priorities[index];
+        if (currentPriority.relatedSubject === null || currentPriority.relatedSubject === undefined)
+        {
+            indexedWeight += transform(currentPriority.weight);
+        }
+        else
+        {
+            let currentSubject = subjects.find(subject => subject.name == currentPriority.relatedSubject);
+            indexedWeight += ( transform(currentPriority.weight) * transform(currentSubject.weight) );
+        }
+        
+    }
+
+    // 4°, return the resulting value
+    return weight + indexedWeight;
 }
 
 /**
