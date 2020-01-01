@@ -10,20 +10,20 @@ var fisica = {
                 {
                     day: "Lunes",
                     building: "Puerto Madero",
-                    hourFrom: "08.00",
-                    hourTo: "10.00"
+                    hourFrom: 8.00,
+                    hourTo: 10.00
                 },
                 {
                     day: "Miercoles",
                     building: "Puerto Madero",
-                    hourFrom: "08.00",
-                    hourTo: "10.00"
+                    hourFrom: 8.00,
+                    hourTo: 10.00
                 },
                 {
                     day: "Viernes",
                     building: "Puerto Madero",
-                    hourFrom: "08.00",
-                    hourTo: "10.00"
+                    hourFrom: 8.00,
+                    hourTo: 10.00
                 }
             ]
         },
@@ -36,20 +36,20 @@ var fisica = {
                 {
                     day: "Lunes",
                     building: "Puerto Madero",
-                    hourFrom: "10.00",
-                    hourTo: "12.00"
+                    hourFrom: 10.00,
+                    hourTo: 12.00
                 },
                 {
                     day: "Jueves",
                     building: "Puerto Madero",
-                    hourFrom: "08.00",
-                    hourTo: "10.00"
+                    hourFrom: 8.00,
+                    hourTo: 10.00
                 },
                 {
                     day: "Viernes",
                     building: "Puerto Madero",
-                    hourFrom: "14.00",
-                    hourTo: "16.00"
+                    hourFrom: 14.00,
+                    hourTo: 16.00
                 }
             ]
         },
@@ -62,20 +62,20 @@ var fisica = {
                 {
                     day: "Martes",
                     building: "Puerto Madero",
-                    hourFrom: "08.00",
-                    hourTo: "10.00"
+                    hourFrom: 8.00,
+                    hourTo: 10.00
                 },
                 {
                     day: "Jueves",
                     building: "Puerto Madero",
-                    hourFrom: "08.00",
-                    hourTo: "10.00"
+                    hourFrom: 8.00,
+                    hourTo: 10.00
                 },
                 {
                     day: "Sabados",
                     building: "Puerto Madero",
-                    hourFrom: "08.00",
-                    hourTo: "10.00"
+                    hourFrom: 8.00,
+                    hourTo: 10.00
                 }
             ]
         }
@@ -94,20 +94,20 @@ var matematica = {
                 {
                     day: "Lunes",
                     building: "Puerto Madero",
-                    hourFrom: "08.00",
-                    hourTo: "10.00"
+                    hourFrom: 8.0,
+                    hourTo: 10.0
                 },
                 {
                     day: "Miercoles",
                     building: "Puerto Madero",
-                    hourFrom: "08.00",
-                    hourTo: "10.00"
+                    hourFrom: 8.0,
+                    hourTo: 10.0
                 },
                 {
                     day: "Viernes",
                     building: "Puerto Madero",
-                    hourFrom: "08.00",
-                    hourTo: "10.00"
+                    hourFrom: 8.0,
+                    hourTo: 10.00
                 }
             ]
         },
@@ -120,20 +120,20 @@ var matematica = {
                 {
                     day: "Lunes",
                     building: "Puerto Madero",
-                    hourFrom: "10.00",
-                    hourTo: "12.00"
+                    hourFrom: 10.00,
+                    hourTo: 12.00
                 },
                 {
                     day: "Jueves",
                     building: "Puerto Madero",
-                    hourFrom: "08.00",
-                    hourTo: "10.00"
+                    hourFrom: 8.00,
+                    hourTo: 10.00
                 },
                 {
                     day: "Viernes",
                     building: "Puerto Madero",
-                    hourFrom: "14.00",
-                    hourTo: "16.00"
+                    hourFrom: 14.00,
+                    hourTo: 16.00
                 }
             ]
         },
@@ -146,20 +146,20 @@ var matematica = {
                 {
                     day: "Martes",
                     building: "Puerto Madero",
-                    hourFrom: "08.00",
-                    hourTo: "10.00"
+                    hourFrom: 8.00,
+                    hourTo: 10.00
                 },
                 {
                     day: "Jueves",
                     building: "Puerto Madero",
-                    hourFrom: "08.00",
-                    hourTo: "10.00"
+                    hourFrom: 8.00,
+                    hourTo: 10.00
                 },
                 {
                     day: "Sabados",
                     building: "Puerto Madero",
-                    hourFrom: "08.00",
-                    hourTo: "10.00"
+                    hourFrom: 8.00,
+                    hourTo: 10.00
                 }
             ]
         }
@@ -178,20 +178,20 @@ var programacion = {
                 {
                     day: "Lunes",
                     building: "Puerto Madero",
-                    hourFrom: "08.00",
-                    hourTo: "10.00"
+                    hourFrom: 8.00,
+                    hourTo: 10.00
                 },
                 {
                     day: "Miercoles",
                     building: "Puerto Madero",
-                    hourFrom: "08.00",
-                    hourTo: "10.00"
+                    hourFrom: 8.00,
+                    hourTo: 10.00
                 },
                 {
                     day: "Viernes",
                     building: "Puerto Madero",
-                    hourFrom: "08.00",
-                    hourTo: "10.00"
+                    hourFrom: 8.00,
+                    hourTo: 10.00
                 }
             ]
         },
@@ -204,20 +204,20 @@ var programacion = {
                 {
                     day: "Lunes",
                     building: "Puerto Madero",
-                    hourFrom: "10.00",
-                    hourTo: "12.00"
+                    hourFrom: 10.00,
+                    hourTo: 12.00
                 },
                 {
                     day: "Jueves",
                     building: "Puerto Madero",
-                    hourFrom: "08.00",
-                    hourTo: "10.00"
+                    hourFrom: 8.00,
+                    hourTo: 10.00
                 },
                 {
                     day: "Viernes",
                     building: "Puerto Madero",
-                    hourFrom: "14.00",
-                    hourTo: "16.00"
+                    hourFrom: 14.00,
+                    hourTo: 16.00
                 }
             ]
         },
@@ -230,20 +230,20 @@ var programacion = {
                 {
                     day: "Martes",
                     building: "Puerto Madero",
-                    hourFrom: "08.00",
-                    hourTo: "10.00"
+                    hourFrom: 8.00,
+                    hourTo: 10.00
                 },
                 {
                     day: "Jueves",
                     building: "Puerto Madero",
-                    hourFrom: "08.00",
-                    hourTo: "10.00"
+                    hourFrom: 8.00,
+                    hourTo: 10.00
                 },
                 {
                     day: "Sabados",
                     building: "Puerto Madero",
-                    hourFrom: "08.00",
-                    hourTo: "10.00"
+                    hourFrom: 8.00,
+                    hourTo: 10.00
                 }
             ]
         }

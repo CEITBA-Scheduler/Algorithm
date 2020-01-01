@@ -136,10 +136,44 @@ var weightAlgorithm = function(priorities, combinationPriorities, subjects, tran
 var verifiesPriorities = function(combination, priorities)
 {
     "use strict";
+
+    // First verification is by superposition.
+    // This is an exclusive condition!
+
+    // MAXSUPERPOSITION limits the amount of superposition between two and only two subjects. EXCLUSIVE CONDITION!
+    const MAXSUPERPOSITION = 1.0; // in hours
+
+    let totalSuperposition = 0.0;
+    let numberOfSuperpositions = 0;
+    for (let i in combination.subjects)
+    {
+        for (let j=i+1; j < combination.subjects.length; j++) // loop avoids redundant superpositions between subjects
+        {
+            for (let currentTime1 of combination.subjects[i].commissionTimes)
+            {
+                for (let currentTime2 of combination.subjects[j].commissionTimes)
+                {
+                    let superposition = getSuperposition(currentTime1,currentTime2)
+                    if (superposition>0.0)
+                    {
+                        totalSuperposition += superposition;
+                        numberOfSuperpositions++;
+                        if (superposition > MAXSUPERPOSITION)
+                        {
+                            return false // Our combination is too superposed
+                        }
+                    }
+                }
+            }
+        }
+    }
+    // Next verification is our non-exclusive priorities
+    // First we assign a priorities property to combination if it does not already have one
+    if (!combination.hasOwnProperty("priorities")) {combination.priorities = [];} // property check
+
     for (let index in priorities)
     {
         let currentPriority = priorities[index];
-        if (!combination.hasOwnProperty("priorities")) {combination.priorities = [];} // property check
         switch (currentPriority.type) {
             case PriorityType.COMMISSION:
                 for (let currentCommission of combination.subjects)
@@ -171,11 +205,50 @@ var verifiesPriorities = function(combination, priorities)
                 }
                 break;
             case PriorityType.FREEDAY:
-                console.log("Not implemented")
+                let isFreeDay = true; // All days are freeDays until proven otherwise
+                for (let currentCommission of combination.subjects)
+                {
+                    for (let currentTime of currentCommission.commissionTimes)
+                    {
+                        if (currentTime.day === currentPriority.value)
+                        {
+                            isFreeDay = false; // If we find a schedule on our freeday it is NOT a priority
+                            break;
+                        }
+                    }
+                    if (!isFreeDay){break;} // This line is to optimize code. Not entirely necessary
+                }
+                if (isFreeDay)
+                {
+                    combination.priorities.push(index);
+                }
+                break;
+            case PriorityType.BUSYTIME:
+                let isBusyCombination = false; // All combinations comply with busyTime until proven otherwise
+                for (let currentCommission of combination.subjects)
+                {
+                    for (let currentTime of currentCommission.commissionTimes)
+                    {
+                        let superposition = getSuperposition(currentTime, currentPriority.value);
+                        if (superposition > 0.0)
+                        {
+                            isBusyCombination = true; // Combination does not comply with priority
+                            break;
+                        }
+                    }
+                    if (isBusyCombination) {break;} // optimization. Can be removed
+                }
+                if (!isBusyCombination) // If we do not find commissions on busyTime, we add priority
+                {
+                    combination.priorities.push(index);
+                }
+                break;
+            case PriorityType.SUPERPOSITION:
+                console.log("Not yet implemented!")  // TODO!
                 break;
         }
     }
-    return true;    // TODO!
+    return true;
 }
 
 /**
@@ -198,7 +271,7 @@ var findSuperpositions = function(...schedules) {
 var getSuperposition = function(schedule1, schedule2) {
     if (schedule1.day !== schedule2.day) // first check is day coincide
     {
-        return 0
+        return 0.0
     }
 
     let duration1 = schedule1.hourTo - schedule1.hourFrom; // these variables shorten ternary expressions
@@ -211,7 +284,7 @@ var getSuperposition = function(schedule1, schedule2) {
     {
         return schedule2.hourTo <= schedule1.hourTo ? duration2 : duration2 - schedule2.hourTo + schedule1.hourTo ;
     }
-    return 0
+    return 0.0
 }
 
 /**

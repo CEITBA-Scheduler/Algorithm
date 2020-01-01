@@ -26,7 +26,7 @@ var priorities = [
         relatedSubject: null,
         isExclusive: false,
         value: {
-            day:"Miercoles",
+            day:"Lunes",
             hourFrom: 8.,
             hourTo: 11.5,
         },
