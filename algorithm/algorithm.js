@@ -135,12 +135,83 @@ var weightAlgorithm = function(priorities, combinationPriorities, subjects, tran
  */
 var verifiesPriorities = function(combination, priorities)
 {
-    for (let index of priorities)
+    "use strict";
+    for (let index in priorities)
     {
-        let currentPriority = priorities[index]
-
+        let currentPriority = priorities[index];
+        if (!combination.hasOwnProperty("priorities")) {combination.priorities = [];} // property check
+        switch (currentPriority.type) {
+            case PriorityType.COMMISSION:
+                for (let currentCommission of combination.subjects)
+                {
+                    if (currentCommission.name !== currentPriority.relatedSubject || currentCommission.commissionName !== currentPriority.value)
+                    {
+                        continue;
+                    }
+                    combination.priorities.push(index);
+                    break;
+                }
+                break;
+            case PriorityType.PROFESSOR:
+                for (let currentCommission of combination.subjects)
+                {
+                    if (currentCommission.name === currentPriority.relatedSubject)
+                    {
+                        for (let currentTeacher of currentCommission.teachers)
+                        {
+                            if (currentTeacher !== currentPriority.value)
+                            {
+                                continue;
+                            }
+                            combination.priorities.push(index);
+                            break;
+                        }
+                    }
+                    break;
+                }
+                break;
+            case PriorityType.FREEDAY:
+                console.log("Not implemented")
+                break;
+        }
     }
     return true;    // TODO!
+}
+
+/**
+ * Checks time superposition between two or more schedules and returns an array whose
+ * elements are the amount of superposed hours for each incident.
+ * @param {...Objects}    schedules (THIS COULD BE ARRAY TOO)
+ * @returns {Array}       superpositions   If empty then no superpositions detected
+ */
+var findSuperpositions = function(...schedules) {
+    return [];
+}
+
+/**
+ * Checks time superposition between two schedules and returns
+ * amount of superposed hours. Requires 24 hour scheme.
+ * @param {Object}    schedule1       Both must have hourTo and hourFrom properties
+ * @param {Object}    schedule2
+ * @returns {Number}  superposition   If 0 then no superposition detected
+ */
+var getSuperposition = function(schedule1, schedule2) {
+    if (schedule1.day !== schedule2.day) // first check is day coincide
+    {
+        return 0
+    }
+
+    let duration1 = schedule1.hourTo - schedule1.hourFrom; // these variables shorten ternary expressions
+    let duration2 = schedule2.hourTo - schedule2.hourFrom;
+    if (schedule1.hourFrom >= schedule2.hourFrom && schedule1.hourFrom < schedule2.hourTo )
+    {
+       return schedule1.hourTo <= schedule2.hourTo ? duration1 : duration1 - schedule1.hourTo + schedule2.hourTo ;
+    }
+    if (schedule2.hourFrom >= schedule1.hourFrom && schedule2.hourFrom < schedule1.hourTo )
+    {
+        return schedule2.hourTo <= schedule1.hourTo ? duration2 : duration2 - schedule2.hourTo + schedule1.hourTo ;
+    }
+    return 0
 }
 
 /**
@@ -292,3 +363,5 @@ var schedulerAlgorithm = function(subjects, selectedSubjects, priorities)
         return combinations;
     }
 }
+
+
