@@ -135,6 +135,11 @@ var weightAlgorithm = function(priorities, combinationPriorities, subjects, tran
  */
 var verifiesPriorities = function(combination, priorities)
 {
+    for (let index of priorities)
+    {
+        let currentPriority = priorities[index]
+
+    }
     return true;    // TODO!
 }
 
