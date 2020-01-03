@@ -26,11 +26,18 @@ var priorities = [
         relatedSubject: null,
         isExclusive: false,
         value: {
-            day:"Lunes",
+            day:"Lunes", // con mayusculas o minusculas?
             hourFrom: 8.,
             hourTo: 11.5,
         },
-    }
+    },
+    {
+        type: "location",
+        weight: 2,
+        relatedSubject: null, //Mejor si se setea por clase o general?
+        isExclusive: false,
+        value: "Madero"
+    },
 ];
 
 var userSelection = [

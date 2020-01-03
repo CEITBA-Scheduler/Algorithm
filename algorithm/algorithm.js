@@ -254,10 +254,11 @@ var verifiesPriorities = function(combination, priorities)
 /**
  * Checks time superposition between two or more schedules and returns an array whose
  * elements are the amount of superposed hours for each incident.
- * @param {...Objects}    schedules (THIS COULD BE ARRAY TOO)
+ * @param {...Object}    schedules (THIS COULD BE ARRAY TOO)
  * @returns {Array}       superpositions   If empty then no superpositions detected
  */
-var findSuperpositions = function(...schedules) {
+var findSuperpositions = function(...schedules)
+{
     return [];
 }
 
@@ -268,7 +269,8 @@ var findSuperpositions = function(...schedules) {
  * @param {Object}    schedule2
  * @returns {Number}  superposition   If 0 then no superposition detected
  */
-var getSuperposition = function(schedule1, schedule2) {
+var getSuperposition = function(schedule1, schedule2)
+{
     if (schedule1.day !== schedule2.day) // first check is day coincide
     {
         return 0.0
