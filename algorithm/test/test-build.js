@@ -46,7 +46,7 @@ const SUBJECTS = commissionsToSubjects(COMMISSIONS);
 
 var userSel = getSelectedSubjects(mechanicSubjectCodeSelection, COMMISSIONS);
 // old way
-var comb = schedulerAlgorithm(subjects, userSelection, priorities);
+// var comb = schedulerAlgorithm(subjects, userSelection, priorities);
 // new way
 var comb = schedulerAlgorithm(SUBJECTS, userSel, priorities);
 

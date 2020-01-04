@@ -17,25 +17,30 @@ var fixSchedules = function(commissions)
     for (let i in commissions.courseCommissions.courseCommission)
     {
         let listita = commissions.courseCommissions.courseCommission[i].courseCommissionTimes;
-        if ( !Array.isArray(commissions.courseCommissions.courseCommission[i].courseCommissionTimes) && listita !== undefined )
+        if ( !Array.isArray(listita) && listita !== undefined )
         {
             listita = [listita];
+            commissions.courseCommissions.courseCommission[i].courseCommissionTimes = listita;
         }
         for (let j in listita)
         {
-            if (listita.length < 2)
-            {
-                let from = commissions.courseCommissions.courseCommission[i].courseCommissionTimes.hourFrom.split(":");
-                let to = commissions.courseCommissions.courseCommission[i].courseCommissionTimes.hourTo.split(":");
-                commissions.courseCommissions.courseCommission[i].courseCommissionTimes.hourFrom = parseFloat(from[0]) + parseFloat(from[1])/60.0;
-                commissions.courseCommissions.courseCommission[i].courseCommissionTimes.hourTo = parseFloat(to[0]) + parseFloat(to[1])/60.0;
-            } else
-            {
-                let from = commissions.courseCommissions.courseCommission[i].courseCommissionTimes[j].hourFrom.split(":");
-                let to = commissions.courseCommissions.courseCommission[i].courseCommissionTimes[j].hourTo.split(":");
-                commissions.courseCommissions.courseCommission[i].courseCommissionTimes[j].hourFrom = parseFloat(from[0]) + parseFloat(from[1])/60.0;
-                commissions.courseCommissions.courseCommission[i].courseCommissionTimes[j].hourTo = parseFloat(to[0]) + parseFloat(to[1])/60.0;
-            }
+            let from = commissions.courseCommissions.courseCommission[i].courseCommissionTimes[j].hourFrom.split(":");
+            let to = commissions.courseCommissions.courseCommission[i].courseCommissionTimes[j].hourTo.split(":");
+            commissions.courseCommissions.courseCommission[i].courseCommissionTimes[j].hourFrom = parseFloat(from[0]) + parseFloat(from[1])/60.0;
+            commissions.courseCommissions.courseCommission[i].courseCommissionTimes[j].hourTo = parseFloat(to[0]) + parseFloat(to[1])/60.0;
+            // if (listita.length < 2)
+            // {
+            //     let from = commissions.courseCommissions.courseCommission[i].courseCommissionTimes.hourFrom.split(":");
+            //     let to = commissions.courseCommissions.courseCommission[i].courseCommissionTimes.hourTo.split(":");
+            //     commissions.courseCommissions.courseCommission[i].courseCommissionTimes.hourFrom = parseFloat(from[0]) + parseFloat(from[1])/60.0;
+            //     commissions.courseCommissions.courseCommission[i].courseCommissionTimes.hourTo = parseFloat(to[0]) + parseFloat(to[1])/60.0;
+            // } else
+            // {
+            //     let from = commissions.courseCommissions.courseCommission[i].courseCommissionTimes[j].hourFrom.split(":");
+            //     let to = commissions.courseCommissions.courseCommission[i].courseCommissionTimes[j].hourTo.split(":");
+            //     commissions.courseCommissions.courseCommission[i].courseCommissionTimes[j].hourFrom = parseFloat(from[0]) + parseFloat(from[1])/60.0;
+            //     commissions.courseCommissions.courseCommission[i].courseCommissionTimes[j].hourTo = parseFloat(to[0]) + parseFloat(to[1])/60.0;
+            // }
         }
     }
     return commissions.courseCommissions.courseCommission
@@ -92,6 +97,7 @@ var commissionsToSubjects = function (commissions)
     let subjectCodes = [];
     for (let commission of commissions)
     {
+        // if commission.
         let subjectIndex = subjectCodes.findIndex(x => x === commission.subjectCode);
         if ( subjectIndex === -1 )
         {

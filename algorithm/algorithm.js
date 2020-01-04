@@ -49,7 +49,8 @@ var searchCombinations = function(subjects, verifier, combination = undefined)
                     name: nodeSubject.name,
                     commissionName: nodeCommission.commissionName,
                     teachers: nodeCommission.teachers,
-                    commissionTimes: nodeCommission.commissionTimes
+                    // commissionTimes: nodeCommission.commissionTimes //TODO! define correctly
+                    commissionTimes: nodeCommission.courseCommissionTimes,
                 }
             );
 
@@ -145,7 +146,7 @@ var verifiesPriorities = function(combination, priorities)
 
     let totalSuperposition = 0.0;
     let numberOfSuperpositions = 0;
-    for (let i in combination.subjects)
+    for (let i = 0; i < combination.subjects.length; i++)
     {
         for (let j=i+1; j < combination.subjects.length; j++) // loop avoids redundant superpositions between subjects
         {
