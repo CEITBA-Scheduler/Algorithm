@@ -41,17 +41,67 @@ var fixSchedules = function(commissions)
     return commissions.courseCommissions.courseCommission
 };
 
-
-// Makes array of commissions selected by user.
-var getSelectedSubjects = function(userSubjectCodeSelection)
-{
-    let userSelection = [];
-    for (let commission of COMMISSIONS)
+/*
+usersel = [
     {
-        if ( userSubjectCodeSelection.includes(commission.subjectCode) )
+        name : "Fisica",
+        commissions: [
+            COM,
+            COM,
+        ],
+    }, {
+        name: "Matematica",
+        commissions : [
+            COM,
+            COM,
+        ],
+    },
+];
+ */
+class subject {
+    constructor(name,subjectCode) {
+        this.name = name;
+        this.subjectCode = subjectCode;
+        this.commissions = [];
+    }
+}
+
+// Makes array of subjects selected by user.
+var getSelectedSubjects = function(userSubjectCodeSelection, commissions)
+{
+    let selectedSubjects = new Array(userSubjectCodeSelection.length);
+    for (let commission of commissions)
+    {
+        let subjectIndex = userSubjectCodeSelection.findIndex(x => x.subjectCode === commission.subjectCode);
+        if ( subjectIndex>-1 )
         {
-            userSelection.push(commission);
+            if (selectedSubjects[subjectIndex]===undefined)
+            {
+                selectedSubjects[subjectIndex] = new subject(commission.subjectName, commission.subjectCode);
+            }
+            selectedSubjects[subjectIndex].commissions.push(commission);
         }
     }
-    return userSelection
+    return selectedSubjects;
+};
+
+// Converts array of commissions to array of subjects
+var commissionsToSubjects = function (commissions)
+{
+    let subjects = [];
+    let subjectCodes = [];
+    for (let commission of commissions)
+    {
+        let subjectIndex = subjectCodes.findIndex(x => x === commission.subjectCode);
+        if ( subjectIndex === -1 )
+        {
+            subjectCodes.push(commission.subjectCode);
+            subjects.push( new subject(commission.subjectName, commission.subjectCode) );
+            subjects[subjects.length-1].commissions.push(commission);
+        } else {
+            subjects[subjectIndex].commissions.push(commission);
+        }
+
+    }
+    return subjects;
 };
