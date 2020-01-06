@@ -1,6 +1,14 @@
 var planJsonURL = "https://raw.githubusercontent.com/CEITBA-Scheduler/Algorithm/master/SGAjson/planM09.json";
 var materiasJsonURL = "https://raw.githubusercontent.com/CEITBA-Scheduler/Algorithm/development/algorithm/test/materias.json";
 
+class subject {
+    constructor(name,subjectCode) {
+        this.name = name;
+        this.subjectCode = subjectCode;
+        this.commissions = [];
+    }
+}
+
 // Returns object as specified by json file. URL points to raw text json file.
 var getJSON = function (url)
 {
@@ -28,48 +36,10 @@ var fixSchedules = function(commissions)
             let to = commissions.courseCommissions.courseCommission[i].courseCommissionTimes[j].hourTo.split(":");
             commissions.courseCommissions.courseCommission[i].courseCommissionTimes[j].hourFrom = parseFloat(from[0]) + parseFloat(from[1])/60.0;
             commissions.courseCommissions.courseCommission[i].courseCommissionTimes[j].hourTo = parseFloat(to[0]) + parseFloat(to[1])/60.0;
-            // if (listita.length < 2)
-            // {
-            //     let from = commissions.courseCommissions.courseCommission[i].courseCommissionTimes.hourFrom.split(":");
-            //     let to = commissions.courseCommissions.courseCommission[i].courseCommissionTimes.hourTo.split(":");
-            //     commissions.courseCommissions.courseCommission[i].courseCommissionTimes.hourFrom = parseFloat(from[0]) + parseFloat(from[1])/60.0;
-            //     commissions.courseCommissions.courseCommission[i].courseCommissionTimes.hourTo = parseFloat(to[0]) + parseFloat(to[1])/60.0;
-            // } else
-            // {
-            //     let from = commissions.courseCommissions.courseCommission[i].courseCommissionTimes[j].hourFrom.split(":");
-            //     let to = commissions.courseCommissions.courseCommission[i].courseCommissionTimes[j].hourTo.split(":");
-            //     commissions.courseCommissions.courseCommission[i].courseCommissionTimes[j].hourFrom = parseFloat(from[0]) + parseFloat(from[1])/60.0;
-            //     commissions.courseCommissions.courseCommission[i].courseCommissionTimes[j].hourTo = parseFloat(to[0]) + parseFloat(to[1])/60.0;
-            // }
         }
     }
     return commissions.courseCommissions.courseCommission
 };
-
-/*
-usersel = [
-    {
-        name : "Fisica",
-        commissions: [
-            COM,
-            COM,
-        ],
-    }, {
-        name: "Matematica",
-        commissions : [
-            COM,
-            COM,
-        ],
-    },
-];
- */
-class subject {
-    constructor(name,subjectCode) {
-        this.name = name;
-        this.subjectCode = subjectCode;
-        this.commissions = [];
-    }
-}
 
 // Makes array of subjects selected by user.
 var getSelectedSubjects = function(userSubjectCodeSelection, commissions)
@@ -97,7 +67,6 @@ var commissionsToSubjects = function (commissions)
     let subjectCodes = [];
     for (let commission of commissions)
     {
-        // if commission.
         let subjectIndex = subjectCodes.findIndex(x => x === commission.subjectCode);
         if ( subjectIndex === -1 )
         {
@@ -107,7 +76,6 @@ var commissionsToSubjects = function (commissions)
         } else {
             subjects[subjectIndex].commissions.push(commission);
         }
-
     }
     return subjects;
 };

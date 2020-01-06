@@ -8,7 +8,20 @@ const PriorityType = {
     FREEDAY: "freeday",
     SUPERPOSITION: "superposition"
 }
+/**
+ * Amount of combinations theoretically possible. Represents complexity
+ * of running schedulerAlgorithm. Can be calculated by multiplying amount
+ * of commissions.
+ * @type {int}
+ */
+var combinatrix = 0;
 
+/**
+ * Limits the amount of superposition between two and only two
+ * subjects as an exclusive condition.
+ * @type {number}
+ */
+const MAXSUPERPOSITION = 0.0; // in hours
 
 /**
  * Searchs all possible combinations of schedules based on the given
@@ -67,6 +80,7 @@ var searchCombinations = function(subjects, verifier, combination = undefined)
     {
         // When there are not subjects left, we have to check if the current combination created
         // is valid according to the criteria or priorities taken by the algorithm user...
+        combinatrix++;
         return verifier(combination) ? [combination] : [];
     }
 }
@@ -141,9 +155,6 @@ var verifiesPriorities = function(combination, priorities)
     // First verification is by superposition.
     // This is an exclusive condition!
 
-    // MAXSUPERPOSITION limits the amount of superposition between two and only two subjects. EXCLUSIVE CONDITION!
-    const MAXSUPERPOSITION = 1.0; // in hours
-
     let totalSuperposition = 0.0;
     let numberOfSuperpositions = 0;
     for (let i = 0; i < combination.subjects.length; i++)
@@ -154,7 +165,7 @@ var verifiesPriorities = function(combination, priorities)
             {
                 for (let currentTime2 of combination.subjects[j].commissionTimes)
                 {
-                    let superposition = getSuperposition(currentTime1,currentTime2)
+                    let superposition = getSuperposition(currentTime1,currentTime2);
                     if (superposition>0.0)
                     {
                         totalSuperposition += superposition;
