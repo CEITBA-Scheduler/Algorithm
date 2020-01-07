@@ -82,7 +82,7 @@ var testSubjectCodeSelection = [
     },
 ];
 
-var materiasJsonURL = "https://raw.githubusercontent.com/CEITBA-Scheduler/Algorithm/development/algorithm/test/materias.json";
+var materiasJsonURL = "https://raw.githubusercontent.com/CEITBA-Scheduler/Algorithm/development/src/test/materias.json";
 const COMMISSIONS = fixSchedules(getJSON(materiasJsonURL));
 const SUBJECTS = commissionsToSubjects(COMMISSIONS);
 
@@ -93,4 +93,3 @@ var userSel = getSelectedSubjects(testSubjectCodeSelection, COMMISSIONS);
 const comb = schedulerAlgorithm(SUBJECTS, userSel, priorities);
 
 console.log(comb)
-

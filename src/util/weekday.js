@@ -1,47 +1,66 @@
-
-let weeknames = [
+const WEEKNAMES = [
     {
         value: 0,
-        aliases: ["domingo","sunday"]
-    },{
-        value: 1,
-        aliases: ["lunes","monday"]
-    },{
-        value: 2,
-        aliases: ["martes","tuesday"]
-    },{
-        value: 3,
-        aliases: ["miércoles","wednesday","miercoles"]
-    },{
-        value: 4,
-        aliases: ["jueves","thursday"]
-    },{
-        value: 5,
-        aliases: ["viernes","friday"]
-    },{
-        value: 6,
-        aliases: ["sábado","saturday","sabado"]
+        aliases: ["domingo", "sunday"]
     },
+    {
+        value: 1,
+        aliases: ["lunes", "monday"]
+    },
+    {
+        value: 2,
+        aliases: ["martes", "tuesday"]
+    },
+    {
+        value: 3,
+        aliases: ["miercoles", "wednesday", "miércoles"]
+    },
+    {
+        value: 4,
+        aliases: ["jueves", "thursday"]
+    },
+    {
+        value: 5,
+        aliases: ["viernes", "friday"]
+    },
+    {
+        value: 6,
+        aliases: ["sabado", "saturday", "sábado"]
+    }
 ];
 
 /**
  * Object with property value:number from 0 to 6 representing day of the week.
  * @Object
  */
-export class weekday {
+export class Weekday {
+
     constructor(input) {
-        for (let weekday of weeknames)
+        switch(typeof(input))
         {
-            for (let alias of weekday.aliases)
-            {
-                let weekIndex = alias.indexOf(input.toLowerCase());
-                if (weekIndex>-1)
+            case "number":
+                var weeknameChosen = WEEKNAMES.find(weekname => weekname.value == input);
+                
+                this.value = weeknameChosen.value;
+                this.aliases = weeknameChosen.aliases;
+                break;
+            case "string":
+                for (let weekname of WEEKNAMES)
                 {
-                    this.value = weekday.value;
+                    for (let alias of weekname.aliases)
+                    {
+                        let weekIndex = alias.indexOf(input.toLowerCase());
+                        if (weekIndex > -1)
+                        {
+                            this.value = weekname.value;
+                            this.aliases = weekname.aliases;
+                        }
+                    }
                 }
-            }
+                break;
         }
     }
+
     /**
      * Takes a string token for language and returns lower case name of weekday in said language.
      * @param lang          string token, "en" for english, "es" for spanish
@@ -52,14 +71,15 @@ export class weekday {
         let name = "";
         switch (lang.toLowerCase()) {
             case "es":
-                name = weeknames[this.value].aliases[0];
+                name = this.aliases[0];
                 break;
             case "en":
-                name = weeknames[this.value].aliases[1];
+                name = this.aliases[1];
                 break;
         }
         return name
     }
+
     /**
      * Takes a string token for language and returns capitalized name of weekday in said language.
      * @param lang          string token, "en" for english, "es" for spanish
@@ -76,11 +96,16 @@ let capitalizeFirstLetter = function(phrase)
 };
 
 // Example of uses:
-// let day = new weekday("TUESDAY");
-//>> day.value = 2
-//>> day.Name("es") = "Martes"
+var day = null;
 
-// let day = new weekday("lunes");
-//>> day.value = 1
-//>> day.Name("es") = "Lunes"
+day = new Weekday("TUESDAY");
+day.value = 2
+console.log(day.Name("es"));
 
+day = new Weekday("lunes");
+day.value = 1;
+console.log(day.Name("es"));
+
+day = new Weekday(3);
+day.value = 1;
+console.log(day.Name("es"));

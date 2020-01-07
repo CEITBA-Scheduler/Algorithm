@@ -1,5 +1,5 @@
 var planJsonURL = "https://raw.githubusercontent.com/CEITBA-Scheduler/Algorithm/master/SGAjson/planM09.json";
-var materiasJsonURL = "https://raw.githubusercontent.com/CEITBA-Scheduler/Algorithm/development/algorithm/test/materias.json";
+var materiasJsonURL = "https://raw.githubusercontent.com/CEITBA-Scheduler/Algorithm/development/src/test/materias.json";
 
 class subject {
     constructor(name,subjectCode) {
@@ -7,7 +7,7 @@ class subject {
         this.subjectCode = subjectCode;
         this.commissions = [];
     }
-}
+}   
 
 // Returns object as specified by json file. URL points to raw text json file.
 var getJSON = function (url)

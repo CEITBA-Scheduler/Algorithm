@@ -8,6 +8,7 @@ const PriorityType = {
     FREEDAY: "freeday",
     SUPERPOSITION: "superposition"
 }
+
 /**
  * Amount of combinations theoretically possible. Represents complexity
  * of running schedulerAlgorithm. Can be calculated by multiplying amount
@@ -57,12 +58,13 @@ var searchCombinations = function(subjects, verifier, combination = undefined)
         for (let nodeCommission of nodeCommissions)
         {
             var newCombination = JSON.parse(JSON.stringify(combination));
+            var auxiliarTeachers = nodeCommission.hasOwnProperty("teachers") ? nodeCommission.teachers : undefined;
+
             newCombination.subjects.push(
                 {
                     name: nodeSubject.name,
                     commissionName: nodeCommission.commissionName,
-                    teachers: nodeCommission.teachers,
-                    // commissionTimes: nodeCommission.commissionTimes //TODO! define correctly
+                    teachers: auxiliarTeachers,
                     commissionTimes: nodeCommission.courseCommissionTimes,
                 }
             );
@@ -154,7 +156,6 @@ var verifiesPriorities = function(combination, priorities)
 
     // First verification is by superposition.
     // This is an exclusive condition!
-
     let totalSuperposition = 0.0;
     let numberOfSuperpositions = 0;
     for (let i = 0; i < combination.subjects.length; i++)
@@ -166,7 +167,7 @@ var verifiesPriorities = function(combination, priorities)
                 for (let currentTime2 of combination.subjects[j].commissionTimes)
                 {
                     let superposition = getSuperposition(currentTime1,currentTime2);
-                    if (superposition>0.0)
+                    if (superposition > 0.0)
                     {
                         totalSuperposition += superposition;
                         numberOfSuperpositions++;
@@ -179,6 +180,7 @@ var verifiesPriorities = function(combination, priorities)
             }
         }
     }
+
     // Next verification is our non-exclusive priorities
     // First we assign a priorities property to combination if it does not already have one
     if (!combination.hasOwnProperty("priorities")) {combination.priorities = [];} // property check
@@ -186,6 +188,7 @@ var verifiesPriorities = function(combination, priorities)
     for (let index in priorities)
     {
         let currentPriority = priorities[index];
+
         switch (currentPriority.type) {
             case PriorityType.COMMISSION:
                 for (let currentCommission of combination.subjects)
@@ -198,6 +201,7 @@ var verifiesPriorities = function(combination, priorities)
                     break;
                 }
                 break;
+
             case PriorityType.PROFESSOR:
                 for (let currentCommission of combination.subjects)
                 {
@@ -216,6 +220,7 @@ var verifiesPriorities = function(combination, priorities)
                     break;
                 }
                 break;
+
             case PriorityType.FREEDAY:
                 let isFreeDay = true; // All days are freeDays until proven otherwise
                 for (let currentCommission of combination.subjects)
@@ -235,6 +240,7 @@ var verifiesPriorities = function(combination, priorities)
                     combination.priorities.push(index);
                 }
                 break;
+
             case PriorityType.BUSYTIME:
                 let isBusyCombination = false; // All combinations comply with busyTime until proven otherwise
                 for (let currentCommission of combination.subjects)
@@ -255,23 +261,14 @@ var verifiesPriorities = function(combination, priorities)
                     combination.priorities.push(index);
                 }
                 break;
+
             case PriorityType.SUPERPOSITION:
                 console.log("Not yet implemented!")  // TODO!
                 break;
         }
     }
-    return true;
-}
 
-/**
- * Checks time superposition between two or more schedules and returns an array whose
- * elements are the amount of superposed hours for each incident.
- * @param {...Object}    schedules (THIS COULD BE ARRAY TOO)
- * @returns {Array}       superpositions   If empty then no superpositions detected
- */
-var findSuperpositions = function(...schedules)
-{
-    return [];
+    return true;
 }
 
 /**
