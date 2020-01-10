@@ -2,28 +2,28 @@ var priorities = [
     {
         type: "professor",
         weight: 3,
-        relatedSubject: "Fisica",
+        relatedSubjectCode: "93.41", // Fisica I
         isExclusive: false,
         value: "R. Dellelis",
     },
     {
         type: "commission",
         weight: 1,
-        relatedSubject: "Fisica",
+        relatedSubjectCode: "93.41", // Fisica I
         isExclusive: false,
         value: "A",
     },
     {
         type: "freeday",
         weight: 2,
-        relatedSubject: null,
+        relatedSubjectCode: null,
         isExclusive: false,
         value: "Lunes",
     },
     {
         type: "busytime",
         weight: 2,
-        relatedSubject: null,
+        relatedSubjectCode: null,
         isExclusive: false,
         value: {
             day:"Lunes", // con mayusculas o minusculas?
@@ -34,18 +34,12 @@ var priorities = [
     {
         type: "location",
         weight: 2,
-        relatedSubject: null, //Mejor si se setea por clase o general?
+        relatedSubjectCode: null, //Mejor si se setea por clase o general?
         isExclusive: false,
         value: "Madero"
     },
 ];
 
-var userSelection = [
-    {
-        name: "Fisica",
-        weight: 1,
-    }
-];
 
 var combinationPriorities = [0, 1];
 

@@ -127,13 +127,13 @@ var weightAlgorithm = function(priorities, combinationPriorities, subjects, tran
     for (let index of combinationPriorities)
     {
         let currentPriority = priorities[index];
-        if (currentPriority.relatedSubject === null || currentPriority.relatedSubject === undefined)
+        if (currentPriority.relatedSubjectCode === null || currentPriority.relatedSubjectCode === undefined)
         {
             indexedWeight += transform(currentPriority.weight);
         }
         else
         {
-            let currentSubject = subjects.find(subject => subject.name == currentPriority.relatedSubject);
+            let currentSubject = subjects.find(subject => subject.subjectCode == currentPriority.relatedSubjectCode);
             indexedWeight += ( transform(currentPriority.weight) * transform(currentSubject.weight) );
         }
         
@@ -193,7 +193,7 @@ var verifiesPriorities = function(combination, priorities)
             case PriorityType.COMMISSION:
                 for (let currentCommission of combination.subjects)
                 {
-                    if (currentCommission.name !== currentPriority.relatedSubject || currentCommission.commissionName !== currentPriority.value)
+                    if (currentCommission.subjectCode !== currentPriority.relatedSubjectCode || currentCommission.commissionName !== currentPriority.value)
                     {
                         continue;
                     }
@@ -205,7 +205,7 @@ var verifiesPriorities = function(combination, priorities)
             case PriorityType.PROFESSOR:
                 for (let currentCommission of combination.subjects)
                 {
-                    if (currentCommission.name === currentPriority.relatedSubject)
+                    if (currentCommission.subjectCode === currentPriority.relatedSubjectCode)
                     {
                         for (let currentTeacher of currentCommission.teachers)
                         {
